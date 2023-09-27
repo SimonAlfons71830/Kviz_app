@@ -17,11 +17,11 @@ public class Start {
     private DbConnection connection;
     private ArrayList<Kviz> kvizy = new ArrayList<>();
 
+    //private String filepath = "kvizy"; //absolutna cesta C:\Users\Simona\Desktop\macrosoft\java03\JAVAII\Kviz_aplikacia\kvizy
+    private String filepath = System.getenv("FILEPATH");
     public void start() {
         connection = DbConnection.getInstancia();
-        this.nacitajKvizZTXT(new File("kvizy/JavaQuiz.txt"));
-        this.nacitajKvizZTXT(new File("kvizy/PHP.txt"));
-
+        this.nacitajKvizyZPriecinku(filepath);
         Frame frame = new Frame(this);
     }
 
@@ -89,7 +89,35 @@ public class Start {
 
     }
 
+    /**
+     * metoda na nacitanie vsetkych .txt suborov, ktore predstavuju kvizy z priecinka "kvizy"
+     * @return z metody bey načítania .txt suborov ak File nie je adresar alebo ak je prázdny
+     */
     public ArrayList<Kviz> getKvizy() {
         return kvizy;
+    }
+
+    public void nacitajKvizyZPriecinku(String cestaKPriecinku){
+        //vytvorime si lokalne v kode priecinok pomocou cesty
+        File priecinok = new File(cestaKPriecinku);
+        //chceme pokracovat iba ak je to adresar/priecinok kde su ulozene ine subory
+        if (!priecinok.exists() || !priecinok.isDirectory()){
+            System.out.println("Priecinok neexistuje alebo to nie je adresar!");
+            //nepokracujeme v metode
+            return;
+        }
+        //vytvorime si pole, kde si nacitame vsetky subory z adresaru
+        File[] poleKvizov = priecinok.listFiles();
+
+        if (poleKvizov == null){
+            System.out.println("Adresar/priecinok je prazdny!");
+            return;
+        }
+
+        for (File f: poleKvizov){
+            if (f.getName().endsWith(".txt") && f.isFile()){
+                this.nacitajKvizZTXT(f);
+            }
+        }
     }
 }
