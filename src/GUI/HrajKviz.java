@@ -79,7 +79,8 @@ public class HrajKviz implements ActionListener {
                             + skore + "/" + this.kviz.getOtazky().size(),
                     "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
             //metoda na aktualizovanie skore v DB
-
+            this.user.setSkore(this.user.getSkore() + skore);
+            this.start.getConnection().aktualizujSkoreUsera(this.user.getEmail(),this.user.getSkore());
 
             this.frame.setContent(new Menu(frame, start, user).getContent());
         } else {

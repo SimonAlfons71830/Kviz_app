@@ -54,5 +54,10 @@ public class Menu implements ActionListener {
         if (e.getSource().equals(vyberKvizuButton)){
             this.frame.setContent(new VyberKvizu(frame,start,user).getContent());
         }
+
+        if (e.getSource().equals(mojeSkoreButton)){
+            this.frame.setContent(new MojeSkore(frame,start,user).getContent());
+
+        }
     }
 }
