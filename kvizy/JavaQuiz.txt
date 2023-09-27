@@ -1,0 +1,6 @@
+Rychle Otazky z Javy;JAVA;3
+Aký je účel jazyka Java?;Vytvárať webové stránky;0;Programovať roboty;0;Vývoj mobilných aplikácií;1;Spravovať databázy;0
+Ktorá z nasledujúcich tvrdení je pravdivá pre jazyk Java?;Je kompilovaný do strojového kódu;0;Je interpretovaný počítačom priamo zo zdrojového kódu;0;Je hybridný jazyk kombinujúci kompiláciu a interpretáciu;1;Nie je možné ho spúšťať na operačnom systéme Windows;0
+Ktorý z nasledujúcich prvkov nepatrí do objektovo-orientovaného programovania v Jave?;Triedy;0;Dedičnosť;0;Polymorfizmus;0;Globálne premenné;1
+Ako sa v Jave deklaruje premenná, ktorá nie je možná na zmenu (konštanta)?;final;1;static;0;abstract;0;public;0
+Ktorá z nasledujúcich výrokov je pravdivá o výnimkách (exceptions) v Jave?;Výnimky sú len chyby v programe, ktoré je možné vždy predvídať a ošetriť.;0;Výnimky sú nežiaduce a program by sa nemal snažiť s nimi pracovať.;0;Výnimky môžu nastať počas behu programu a môžu byť ošetrené vývojárom.;1;Výnimky sa v Jave vôbec nepoužívajú.;0
