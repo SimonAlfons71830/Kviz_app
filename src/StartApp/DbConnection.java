@@ -115,4 +115,20 @@ public class DbConnection {
             return false;
         }
     }
+
+    public void aktualizujSkoreUsera(String email, Integer skore){ //User user
+        String query = "UPDATE Users SET skore = ? WHERE email = ?";
+        try {
+            PreparedStatement preparedStatement = this.connection.prepareStatement(query);
+            preparedStatement.setInt(1,skore); //user.getSkore()
+            preparedStatement.setString(2,email); //user.getEmail()
+
+            Integer rowsAffected = preparedStatement.executeUpdate();
+            System.out.println(rowsAffected);
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
 }

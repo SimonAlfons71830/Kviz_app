@@ -45,24 +45,20 @@ public class MojeSkore implements ActionListener {
         model.addColumn("Email");
         model.addColumn("Skore");
 
-        model.addRow(new Object[]{model.getColumnName(0),model.getColumnName(1),model.getColumnName(2),model.getColumnName(3),model.getColumnName(4)});
+        model.addRow(new Object[]{model.getColumnName(0), model.getColumnName(1), model.getColumnName(2), model.getColumnName(3), model.getColumnName(4)});
 
         ArrayList<User> pomUsers = this.start.getConnection().nacitajUserov();
         Collections.sort(pomUsers);
 
         Integer pocitadlo = 1;
 
-        for (User u: pomUsers){
-            if (u != null){
+        for (User u : pomUsers) {
+            if (u != null) {
                 model.addRow(new Object[]{pocitadlo, u.getMeno(), u.getPriezvisko(), u.getEmail(), u.getSkore()});
                 //zvyraznit riadok ktory je aktualny user
                 pocitadlo++;
             }
         }
-
-
-
-
     }
 
     public JPanel getContent() {
