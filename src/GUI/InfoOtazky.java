@@ -68,6 +68,7 @@ public class InfoOtazky implements ActionListener {
         if (e.getSource().equals(KONIECButton)) {
             this.start.getKvizy().add(kviz);
             //metoda pre pridanie kvizu aj do priecinku kvizy ako .txt file
+            this.start.ulozKviz(kviz);
             this.frame.setContent(new AdminMenu(frame, start, user).getContent());
         }
         if (e.getSource().equals(dalsiaOtazkaButton)) {

@@ -6,7 +6,9 @@ import Entity.Moznost;
 import Entity.Otazka;
 import GUI.Frame;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ public class Start {
 
     //private String filepath = "kvizy"; //absolutna cesta C:\Users\Simona\Desktop\macrosoft\java03\JAVAII\Kviz_aplikacia\kvizy
     private String filepath = System.getenv("FILEPATH");
+
     public void start() {
         connection = DbConnection.getInstancia();
         this.nacitajKvizyZPriecinku(filepath);
@@ -89,19 +92,52 @@ public class Start {
 
     }
 
+    public void ulozKviz(Kviz kviz) {
+        //vytvorit cestu, kde sa ma ulozit kviz
+        //kvizy\nazov_kvizu.txt
+        //File.separator == "\\"
+
+        String filepath = this.filepath + File.separator + kviz.getNazovKvizu() + ".txt";
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filepath))) {
+            //nazovKvizu;Kategoria;obtiaznost
+            writer.write(kviz.getNazovKvizu() + ";" + kviz.getKategoria() + ";" + kviz.getObtiaznost());
+            writer.newLine();
+
+            //cyklus pre zapisovanie otazok
+            for (Otazka o : kviz.getOtazky()) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(o.getTextOtazky()).append(";");
+
+                for (Moznost m : o.getMoznosti()) {
+                    sb.append(m.getTextMoznosti()).append(";").append(m.getJeSpravna() ? "1" : "0").append(";");
+                }
+                writer.write(sb.toString().trim());
+                writer.newLine();
+            }
+            System.out.println("Kviz bol uspesne ulozeny.");
+
+        } catch (IOException e) {
+            System.out.println("Kviz nebol ulozeny" + e);
+        }
+
+
+    }
+
     /**
      * metoda na nacitanie vsetkych .txt suborov, ktore predstavuju kvizy z priecinka "kvizy"
+     *
      * @return z metody bey načítania .txt suborov ak File nie je adresar alebo ak je prázdny
      */
     public ArrayList<Kviz> getKvizy() {
         return kvizy;
     }
 
-    public void nacitajKvizyZPriecinku(String cestaKPriecinku){
+    public void nacitajKvizyZPriecinku(String cestaKPriecinku) {
         //vytvorime si lokalne v kode priecinok pomocou cesty
         File priecinok = new File(cestaKPriecinku);
         //chceme pokracovat iba ak je to adresar/priecinok kde su ulozene ine subory
-        if (!priecinok.exists() || !priecinok.isDirectory()){
+        if (!priecinok.exists() || !priecinok.isDirectory()) {
             System.out.println("Priecinok neexistuje alebo to nie je adresar!");
             //nepokracujeme v metode
             return;
@@ -109,13 +145,13 @@ public class Start {
         //vytvorime si pole, kde si nacitame vsetky subory z adresaru
         File[] poleKvizov = priecinok.listFiles();
 
-        if (poleKvizov == null){
+        if (poleKvizov == null) {
             System.out.println("Adresar/priecinok je prazdny!");
             return;
         }
 
-        for (File f: poleKvizov){
-            if (f.getName().endsWith(".txt") && f.isFile()){
+        for (File f : poleKvizov) {
+            if (f.getName().endsWith(".txt") && f.isFile()) {
                 this.nacitajKvizZTXT(f);
             }
         }
