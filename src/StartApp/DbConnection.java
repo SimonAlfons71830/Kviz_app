@@ -76,6 +76,7 @@ public class DbConnection {
                         rs.getString("heslo"));
                 user.setUserId(rs.getInt("userId"));
                 user.setJeAdmin(rs.getInt("jeAdmin"));
+                user.setSkore(rs.getInt("skore"));
 
                 listUserov.add(user);
             }
